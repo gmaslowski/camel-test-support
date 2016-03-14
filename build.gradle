@@ -5,6 +5,10 @@ repositories {
 }
 
 dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.6"
+
+    compileOnly "org.apache.camel:camel-test:2.16.2"
+    compileOnly "org.mockito:mockito-all:1.10.19"
 }
 
 task wrapper(type: Wrapper) {
