@@ -1,4 +1,4 @@
-package com.gmaslowski.camel.test
+package com.gmaslowski.camel.test.integration
 
 import static java.util.Collections.emptyList
 import static java.util.Collections.emptyMap

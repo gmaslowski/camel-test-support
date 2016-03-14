@@ -1,4 +1,4 @@
-package com.gmaslowski.camel.test
+package com.gmaslowski.camel.test.integration
 
 import org.apache.camel.Exchange
 import org.apache.camel.builder.AdviceWithRouteBuilder
