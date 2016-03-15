@@ -48,6 +48,12 @@ uploadArchives {
                 description 'Apache Camel Test Support.'
                 url 'http://github.com/gmaslowski/camel-test-support'
 
+                scm {
+                    connection 'scm:git:git@github.com:gmaslowski/camel-test-support.git'
+                    developerConnection 'scm:git:git@github.com:gmaslowski/camel-test-support.git'
+                    url 'http://github.com/gmaslowski/camel-test-support'
+                }
+
                 licenses {
                     license {
                         name 'The Apache License, Version 2.0'
