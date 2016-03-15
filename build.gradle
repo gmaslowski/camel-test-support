@@ -1,4 +1,5 @@
 apply plugin: 'groovy'
+apply plugin: 'maven'
 
 repositories {
     jcenter()
@@ -11,6 +12,66 @@ dependencies {
     compileOnly "org.mockito:mockito-all:1.10.19"
 }
 
+group = "com.gmaslowski"
+archivesBaseName = "camel-test-support"
+version = "0.0.1"
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Apache Camel Test Support'
+                packaging 'jar'
+
+                description 'Apache Camel Test Support.'
+                url 'http://github.com/gmaslowski/camel-test-support'
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'gmaslowski'
+                        name 'Greg Maslowski'
+                        email 'gregmaslowski@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
 task wrapper(type: Wrapper) {
     gradleVersion = '2.11'
 }
