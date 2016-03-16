@@ -1,11 +1,11 @@
-package com.gmaslowski.camel.test.unit
+package com.gmaslowski.camel.test.unit;
 
-import org.apache.camel.Expression
-import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.Expression;
+import org.apache.camel.builder.RouteBuilder;
 
-abstract class SplitterUnitTest extends CamelUnitTestBase {
+public abstract class CamelSplitterUnitTest extends CamelUnitTestBase {
 
-    protected abstract Expression splitterUnderTest()
+    protected abstract Expression splitterUnderTest();
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
@@ -14,9 +14,8 @@ abstract class SplitterUnitTest extends CamelUnitTestBase {
             public void configure() throws Exception {
                 from(fromEndpointUri)
                         .split(splitterUnderTest())
-                        .to(toEndpointUri)
+                        .to(toEndpointUri);
             }
-        }
+        };
     }
 }
-

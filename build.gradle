@@ -1,4 +1,4 @@
-apply plugin: 'groovy'
+apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
@@ -7,14 +7,14 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.codehaus.groovy:groovy-all:2.4.6"
     compileOnly "org.apache.camel:camel-test:2.16.2"
     compileOnly "org.mockito:mockito-all:1.10.19"
+    compileOnly "org.projectlombok:lombok:1.16.8"
 }
 
 group = "com.gmaslowski"
 archivesBaseName = "camel-test-support"
-version = "0.0.3"
+version = "0.0.4"
 
 task javadocJar(type: Jar) {
     classifier = 'javadoc'

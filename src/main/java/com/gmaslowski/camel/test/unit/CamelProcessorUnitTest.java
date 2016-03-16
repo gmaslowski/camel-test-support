@@ -1,11 +1,11 @@
-package com.gmaslowski.camel.test.unit
+package com.gmaslowski.camel.test.unit;
 
-import org.apache.camel.Processor
-import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
 
-public abstract class ProcessorUnitTest extends CamelUnitTestBase {
+public abstract class CamelProcessorUnitTest extends CamelUnitTestBase {
 
-    protected abstract Processor processorUnderTest()
+    protected abstract Processor processorUnderTest();
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
@@ -14,8 +14,8 @@ public abstract class ProcessorUnitTest extends CamelUnitTestBase {
             public void configure() throws Exception {
                 from(fromEndpointUri)
                         .process(processorUnderTest())
-                        .to(toEndpointUri)
+                        .to(toEndpointUri);
             }
-        }
+        };
     }
 }
