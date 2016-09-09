@@ -7,13 +7,13 @@ A library supporting testing Apache Camel based routes, processors, converters, 
 
 #### Gradle
 
-```
+```groovy
 testCompile 'com.gmaslowski:camel-test-support:0.0.4'
 ```
 
 #### Maven
 
-```
+```xml
 <dependency>
     <groupId>com.gmaslowski</groupId>
     <artifactId>camel-test-support</artifactId>
@@ -24,14 +24,14 @@ testCompile 'com.gmaslowski:camel-test-support:0.0.4'
 
 #### sbt
 
-```
+```scala
 libraryDependencies += "com.gmaslowski" % "camel-test-support" % "0.0.4" % "test"
 ```
 
 ### Examples
 
 #### Processor test example
-```
+```java
 public class ExampleProcessorTest extends CamelProcessorUnitTest {
 
     @Override
@@ -54,7 +54,7 @@ public class ExampleProcessorTest extends CamelProcessorUnitTest {
 ```
 
 #### Integration test example
-```
+```java
 public class EventProcessingIntegrationTest extends CamelRouteIntegrationTestBase {
 
     @Override
