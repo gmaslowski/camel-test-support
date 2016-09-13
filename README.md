@@ -8,7 +8,7 @@ A library supporting testing Apache Camel based routes, processors, converters, 
 #### Gradle
 
 ```groovy
-testCompile 'com.gmaslowski:camel-test-support:0.0.4'
+testCompile 'com.gmaslowski:camel-test-support:0.0.5'
 ```
 
 #### Maven
@@ -17,7 +17,7 @@ testCompile 'com.gmaslowski:camel-test-support:0.0.4'
 <dependency>
     <groupId>com.gmaslowski</groupId>
     <artifactId>camel-test-support</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -25,7 +25,7 @@ testCompile 'com.gmaslowski:camel-test-support:0.0.4'
 #### sbt
 
 ```scala
-libraryDependencies += "com.gmaslowski" % "camel-test-support" % "0.0.4" % "test"
+libraryDependencies += "com.gmaslowski" % "camel-test-support" % "0.0.5" % "test"
 ```
 
 ### Examples
