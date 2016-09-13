@@ -14,9 +14,9 @@ import static java.util.Collections.emptyMap;
 @Data
 @Builder
 @AllArgsConstructor
-public class CamelRouteTestConfiguration {
+public class CamelRouteIntegrationTestConfiguration {
 
-    private String routeName;
+    private String routeId;
     @Singular
     private List<String> mockSchemes = emptyList();
     private String mockFromEndpointName;

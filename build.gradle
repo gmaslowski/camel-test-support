@@ -7,14 +7,14 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.apache.camel:camel-test:2.16.2"
+    compileOnly "org.apache.camel:camel-test:2.17.3"
     compileOnly "org.mockito:mockito-all:1.10.19"
     compileOnly "org.projectlombok:lombok:1.16.8"
 }
 
 group = "com.gmaslowski"
 archivesBaseName = "camel-test-support"
-version = "0.0.4"
+version = "0.0.5"
 
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
@@ -81,5 +81,5 @@ uploadArchives {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+    gradleVersion = '3.0'
 }

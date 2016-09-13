@@ -21,12 +21,12 @@ public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
         initMocks(this);
     }
 
-    protected abstract CamelRouteTestConfiguration testConfiguration();
+    protected abstract CamelRouteIntegrationTestConfiguration testConfiguration();
 
     @Before
     public void startCamel() throws Exception {
 
-        context.getRouteDefinition(testConfiguration().getRouteName())
+        context.getRouteDefinition(testConfiguration().getRouteId())
                 .adviceWith(context, new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
@@ -66,7 +66,11 @@ public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
     }
 
     private void mockComponentForSchemes(List<String> schemes) {
-        schemes.forEach(scheme -> context.addComponent(scheme, new MockComponent()));
+        schemes.forEach(this::mockComponentForScheme);
+    }
+
+    private void mockComponentForScheme(String scheme) {
+        context.addComponent(scheme, new MockComponent());
     }
 
     private void replaceFromEndpoint(String fromUri, AdviceWithRouteBuilder adviceBuilder) {
@@ -74,9 +78,13 @@ public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
     }
 
     private void replaceToEndpoints(Map<String, String> endpointMappings, AdviceWithRouteBuilder adviceBuilder) {
-        endpointMappings.forEach((fromEndpoint, toEndpoint) -> adviceBuilder.interceptSendToEndpoint(fromEndpoint)
-                .skipSendToOriginalEndpoint()
-                .to(toEndpoint));
-    }
+        endpointMappings.forEach((fromEndpoint, toEndpoint) -> {
 
+            mockComponentForScheme(fromEndpoint.substring(0, fromEndpoint.indexOf("*")));
+
+            adviceBuilder.interceptSendToEndpoint(fromEndpoint)
+                    .skipSendToOriginalEndpoint()
+                    .to(toEndpoint);
+        });
+    }
 }
