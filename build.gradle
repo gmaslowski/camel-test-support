@@ -10,6 +10,11 @@ dependencies {
     compileOnly "org.apache.camel:camel-test:2.17.3"
     compileOnly "org.mockito:mockito-all:1.10.19"
     compileOnly "org.projectlombok:lombok:1.16.8"
+
+    testCompile "org.apache.camel:camel-test:2.17.3"
+    testCompile "org.mockito:mockito-all:1.10.19"
+    testCompile "org.apache.camel:camel-core:2.17.3"
+    testCompile "junit:junit:4.12"
 }
 
 group = "com.gmaslowski"

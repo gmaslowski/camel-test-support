@@ -33,22 +33,39 @@ libraryDependencies += "com.gmaslowski" % "camel-test-support" % "0.0.5" % "test
 
 ### Examples
 
+For working examples refer to ``src/test/java/``.
+
 #### Processor test example
 ```java
-public class ExampleProcessorTest extends CamelProcessorUnitTest {
+public class ProcessorUnitTest extends CamelProcessorUnitTest {
+
+    static class Input { String value; }
+    static class Output { String value; @Override public boolean equals(Object obj) { return ((Output)obj).value.equals(this.value); }}
 
     @Override
     protected Processor processorUnderTest() {
-        return ...; // processor instance
+        return exchange -> {
+            Input input = exchange.getIn().getBody(Input.class);
+            Output output = new Output();
+            output.value = input.value;
+            exchange.getIn().setBody(output);
+        };
     }
 
     @Test
-    public void shouldMapToProperType() throws InterruptedException {
+    public void shouldTestProcessor() throws InterruptedException {
+        // given
+        Input input = new Input();
+        input.value = "message";
+
+        Output expected = new Output();
+        expected.value = "message";
+
         // expect
-        resultEndpoint.expectedMessagesMatches(...);
+        resultEndpoint.expectedBodiesReceived(expected);
 
         // when
-        template.sendBody(processorInput);
+        template.sendBody(input);
 
         // then
         resultEndpoint.assertIsSatisfied();
@@ -61,12 +78,11 @@ public class ExampleProcessorTest extends CamelProcessorUnitTest {
 public class EventProcessingIntegrationTest extends CamelRouteIntegrationTestBase {
 
     @Override
-    protected CamelRouteTestConfiguration testConfiguration() {
-        return CamelRouteTestConfiguration.builder()
-                .routeName(PROCESS_EVENT_ROUTE)
-                .mockScheme("mongodb")
+    protected CamelRouteIntegrationTestConfiguration testConfiguration() {
+        return CamelRouteIntegrationTestConfiguration.builder()
+                .routeId(PROCESS_EVENT_ROUTE)
                 .mockFromEndpointName("direct:start")
-                .mockToEndpoint("mongodb*", "mock:result")
+                .mockToEndpoint("mongodb:*", "mock:result")
                 .build();
     }
 
@@ -77,7 +93,7 @@ public class EventProcessingIntegrationTest extends CamelRouteIntegrationTestBas
     public void shouldStoreEventIntoMongoDB() throws Exception {
         // given
         Event event = new Event();
-        event.setCreated(new Date());
+        event.created = new Date();
 
         // expect
         resultEndpoint.expectedMessageCount(1);
@@ -87,9 +103,8 @@ public class EventProcessingIntegrationTest extends CamelRouteIntegrationTestBas
 
         // then
         resultEndpoint.assertIsSatisfied();
-        Assertions.assertThat(resultEndpoint.getExchanges().get(0).getIn().getBody(Event.class).getProcessed()).isNotNull();
+        assertNotNull(resultEndpoint.getExchanges().get(0).getIn().getBody(Event.class).processed);
     }
-
 
     @Override
     protected RoutesBuilder createRouteBuilder() throws Exception {

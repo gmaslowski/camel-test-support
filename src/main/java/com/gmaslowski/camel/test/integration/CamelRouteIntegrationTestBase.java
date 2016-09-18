@@ -80,7 +80,7 @@ public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
     private void replaceToEndpoints(Map<String, String> endpointMappings, AdviceWithRouteBuilder adviceBuilder) {
         endpointMappings.forEach((fromEndpoint, toEndpoint) -> {
 
-            mockComponentForScheme(fromEndpoint.substring(0, fromEndpoint.indexOf("*")));
+            mockComponentForScheme(fromEndpoint.substring(0, fromEndpoint.indexOf(":")));
 
             adviceBuilder.interceptSendToEndpoint(fromEndpoint)
                     .skipSendToOriginalEndpoint()
