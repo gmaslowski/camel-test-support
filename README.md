@@ -1,6 +1,8 @@
 camel-test-support
 ==================
 
+[![Build Status](https://snap-ci.com/gmaslowski/camel-test-support/branch/master/build_image)](https://snap-ci.com/gmaslowski/camel-test-support/branch/master)
+
 A library supporting testing Apache Camel based routes, processors, converters, splitters. It's main purpose is to create better-to-use and not-so-cluttered API on top of camel-test's API.
 
 ### Add to project
