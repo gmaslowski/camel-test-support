@@ -1,7 +1,7 @@
 camel-test-support
 ==================
 
-A library supporting testing Apache Camel based routes, processors, converters, splitters.
+A library supporting testing Apache Camel based routes, processors, converters, splitters. It's main purpose is to create better-to-use and not-so-cluttered API on top of camel-test's API.
 
 ### Add to project
 
