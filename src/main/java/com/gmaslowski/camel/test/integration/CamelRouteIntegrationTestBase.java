@@ -8,6 +8,8 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.After;
 import org.junit.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,8 @@ import java.util.Map;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
+
+    private static final Logger log = LoggerFactory.getLogger(CamelRouteIntegrationTestBase.class);
 
     public CamelRouteIntegrationTestBase() {
         super();
@@ -70,11 +74,17 @@ public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
     }
 
     private void mockComponentForScheme(String scheme) {
-        context.addComponent(scheme, new MockComponent());
+        if (!context.getComponentNames().contains(scheme)) {
+            log.debug("Mocking component: {}", scheme);
+            context.addComponent(scheme, new MockComponent());
+            return;
+        }
+        log.debug("Component already mocked: {}", scheme);
     }
 
     private void replaceFromEndpoint(String fromUri, AdviceWithRouteBuilder adviceBuilder) {
         adviceBuilder.replaceFromWith(fromUri);
+        log.debug("Replacing from endpoint: {}.", fromUri);
     }
 
     private void replaceToEndpoints(Map<String, String> endpointMappings, AdviceWithRouteBuilder adviceBuilder) {
@@ -85,6 +95,7 @@ public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
             adviceBuilder.interceptSendToEndpoint(fromEndpoint)
                     .skipSendToOriginalEndpoint()
                     .to(toEndpoint);
+            log.debug("Replacing to endpoint {} with {}.", fromEndpoint, toEndpoint);
         });
     }
 }
