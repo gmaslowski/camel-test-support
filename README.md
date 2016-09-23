@@ -36,6 +36,7 @@ libraryDependencies += "com.gmaslowski" % "camel-test-support" % "0.0.7" % "test
 For working examples refer to ``src/test/java/``.
 
 #### Processor test example
+
 ```java
 public class ProcessorUnitTest extends CamelProcessorUnitTest {
 
