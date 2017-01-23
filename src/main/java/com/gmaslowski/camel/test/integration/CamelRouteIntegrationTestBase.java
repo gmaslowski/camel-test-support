@@ -19,6 +19,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
 
     private static final Logger log = LoggerFactory.getLogger(CamelRouteIntegrationTestBase.class);
+    private static final String DIRECT_SCHEME = "direct";
 
     public CamelRouteIntegrationTestBase() {
         super();
@@ -74,7 +75,7 @@ public abstract class CamelRouteIntegrationTestBase extends CamelTestSupport {
     }
 
     private void mockComponentForScheme(String scheme) {
-        if (!context.getComponentNames().contains(scheme)) {
+        if (!DIRECT_SCHEME.equals(scheme) && !context.getComponentNames().contains(scheme)) {
             log.debug("Mocking component: {}", scheme);
             context.addComponent(scheme, new MockComponent());
             return;

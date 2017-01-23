@@ -1,8 +1,5 @@
-package com.gmaslowski.camel.test.example.integration;
+package com.gmaslowski.camel.test.example.integration.event;
 
-import com.gmaslowski.camel.test.example.config.Event;
-import com.gmaslowski.camel.test.example.config.EventProcessingBean;
-import com.gmaslowski.camel.test.example.config.EventProcessingRoute;
 import com.gmaslowski.camel.test.integration.CamelRouteIntegrationTestBase;
 import com.gmaslowski.camel.test.integration.CamelRouteIntegrationTestConfiguration;
 import org.apache.camel.EndpointInject;
@@ -12,14 +9,12 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static com.gmaslowski.camel.test.example.config.EventProcessingRoute.PROCESS_EVENT_ROUTE;
-
 public class EventProcessingIntegrationTest extends CamelRouteIntegrationTestBase {
 
     @Override
     protected CamelRouteIntegrationTestConfiguration testConfiguration() {
         return CamelRouteIntegrationTestConfiguration.builder()
-                .routeId(PROCESS_EVENT_ROUTE)
+                .routeId(EventProcessingRoute.PROCESS_EVENT_ROUTE)
                 .mockFromEndpointName("direct:start")
                 .mockToEndpoint("mongodb:*", "mock:result")
                 .build();

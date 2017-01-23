@@ -1,4 +1,4 @@
-package com.gmaslowski.camel.test.example.config;
+package com.gmaslowski.camel.test.example.integration.event;
 
 import org.apache.camel.builder.RouteBuilder;
 
