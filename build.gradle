@@ -21,6 +21,9 @@ group = "com.gmaslowski"
 archivesBaseName = "camel-test-support"
 version = "1.1-SNAPSHOT"
 
+def ossUser = hasProperty('osshrUsername') ? osshrUsername : System.getenv('osshrUsername')
+def ossPass = hasProperty('osshrPassword') ? osshrPassword : System.getenv('osshrPassword')
+
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
@@ -46,11 +49,11 @@ uploadArchives {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
+                authentication(userName: ossUser, password: ossPass)
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
+                authentication(userName: ossUser, password: ossPass)
             }
 
             pom.project {
